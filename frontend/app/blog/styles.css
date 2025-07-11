@@ -1,0 +1,9 @@
+@import "../globals.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.blog-card {
+    @apply max-w-sm border-2 rounded-lg overflow-hidden border-background hover:border-muted-purple-hover bg-foreground text-text;
+    color: var(--text-color);
+}

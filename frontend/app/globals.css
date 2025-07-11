@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    color-scheme: dark;
+    --background-color: #121212;
+    --accent-color: #1E1E1E;
+    --text-color: #E0E0E0;
+    --secondary-text-color: #B0B0B0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --text-color: #E0E0E0;
+    }
+}
+
+body {
+    color: var(--text-color);
+    background: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.navigation-bar {
+    @apply w-screen py-3 border-b;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border-color: var(--accent-color);
+}
+
+.navigation-bar-element:hover {
+    text-decoration: underline;
+}
