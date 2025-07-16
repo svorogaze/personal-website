@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build: /frontend/
+    ports:
+      - "3000:3000"
+  backend:
+    build: /backend/
+    ports:
+      - "8088:8088"
+    env_file: "backend.env"

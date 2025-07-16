@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 	"io"
@@ -225,13 +224,10 @@ func createBlog(c *gin.Context) {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 	connStr := fmt.Sprintf("user=%s password=%s dbname=blogs sslmode=disable", os.Getenv("POSTGRES_USERNAME"),
 		os.Getenv("POSTGRES_PASSWORD"))
 	imageFolder = os.Getenv("IMAGE_FOLDER_PATH")
+	var err error
 	db, err = sqlx.Open("postgres", connStr)
 	if err != nil {
 		log.Fatalf("failed to connect to db %v", err)
