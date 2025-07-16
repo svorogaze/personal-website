@@ -8,13 +8,13 @@ import Link from 'next/link';
 function BlogCard(props) {
     return (
         <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 py-3">
-            <Link className="blog-card h-full w-full flex flex-col max-w-full" href={`/blog/${props.id}`}>
+            <Link className="blog-card h-full w-full flex flex-col max-w-full group" href={`/blog/${props.id}`}>
                 <Image
-                    src={props.imageLink}
+                    src={"/" + props.imageLink}
                     alt=""
-                    width="256"
-                    height="256"
-                    className="object-cover w-full h-48"
+                    width="1024"
+                    height="1024"
+                    className="object-cover w-full h-48 group-hover:brightness-50 transition-all duration-75"
                 />
                 <div className="px-5 py-4 text-left flex-grow max-w-full">
                     <div className="font-bold text-xl mb-2 pr-2 max-w-full break-words">{props.title}</div>

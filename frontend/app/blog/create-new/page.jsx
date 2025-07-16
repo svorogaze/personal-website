@@ -1,19 +1,14 @@
 'use client'
-import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { TextField } from '@mui/material';
-import { format } from 'date-fns';
-import parse from 'html-react-parser';
-import {Input} from "@heroui/react";
-import {Button} from "@heroui/react";
-
+import {Input, Button} from "@heroui/react";
+import {useDropzone} from 'react-dropzone';
 function TextInputForm(props) {
     return (
         <Input
             label={props.label}
             placeholder={props.placeholder}
             value={props.value}
-            className="mt-10 mb-10 text-text max-w-[450px]"
+            className="mt-5 mb-5 text-text max-w-[450px]"
             onChange={((e) => {
                 props.setter(e.target.value)
             })}
@@ -118,19 +113,34 @@ function PasswordInputForm(props) {
 }
 
 
-function FileAttachment() {
-    return (
-        <div>
+function FileAttachment(props) {    
+    const files = props.acceptedFiles.map(file => (
+        <li key={file.path} className="flex justify-between items-center p-2">
+            <span className="text-sm text-text truncate max-w-xs">{file.path}</span>
+            <span className="text-xs text-textsecondary">{(file.size / 1024).toFixed(2)} KB</span>
+        </li>
+    ));
 
-        </div>
-    );
-}
-
-function SendButton() {
     return (
-        <div>
-            
+        <section className="max-w-[450]">
+        <h2 className="text-lg font-medium text-text mb-3">{props.title}</h2>
+        <div 
+            {...props.getRootProps()} 
+            className="border-2 border-dashed border-muted-purple rounded-lg p-8 text-center cursor-pointer hover:border-muted-purple-hover bg-foreground hover:bg-[#2E2E2E] transition-colors duration-200"
+        >
+            <input {...props.getInputProps()} />
+            <p className="text-text">Drag file here or click to select</p>
         </div>
+        <aside className="mt-4 mb-2">
+            {files.length > 0 ? (
+                <ul className="bg-foreground rounded-lg overflow-hidden">
+                    {files}
+                </ul>
+            ) : (
+                <p className="text-sm text-textsecondary italic">No files selected</p>
+            )}
+        </aside>
+    </section>
     );
 }
 
@@ -139,15 +149,52 @@ export default function Home() {
     const [description, setDescription] = useState();
     const [login, setLogin] = useState();
     const [password, setPassword] = useState();
+    const { acceptedFiles: acceptedFilesHtml, getRootProps: getRootPropsHtml, getInputProps: getInputPropsHtml } = useDropzone(
+        {
+            accept: {
+                'text/txt': ['.html', '.htm', '.txt'],
+            }
+        }
+    );
+    const { acceptedFiles: acceptedFilesImage, getRootProps: getRootPropsImage, getInputProps: getInputPropsImage } = useDropzone(
+        {
+            accept: {
+                'image': ['.png', '.jpg', 'webp'],
+            }
+        }
+    );
+    const sendData = async () => {
+        if (acceptedFilesHtml.length != 1) {
+            alert("Please attach exactly 1 html file");
+            return;
+        }
+        if (acceptedFilesImage.length != 1) {
+            alert("Please attach exactly 1 image file");
+            return;
+        }
+        let form = new FormData();
+        form.append("title", title);
+        form.append("description", description);
+        form.append("login", login);
+        form.append("password", password);
+        form.append("blog-text", acceptedFilesHtml[0], acceptedFilesHtml[0].name);
+        form.append("cover-image", acceptedFilesImage[0],acceptedFilesImage[0].name);
+        await fetch('http://localhost:3000/api/blogs', {
+            method: 'POST',
+            body: form
+        })
+        .then(response => response.json())
+        .then(data => console.log(data));
+    };
     return (
-        <div className="mt-10 ml-5 mr-5">
+        <div className="mt-10 ml-5 mr-5 items-center flex-shrink-0">
             <TextInputForm label="Title" placeholder="Title of the post" value={title} setter={setTitle}/>
             <TextInputForm label="Description" placeholder="Description of the post" value={description} setter={setDescription}/>
-            <FileAttachment/>
-            <FileAttachment/>
+            <FileAttachment title="HTML" acceptedFiles={acceptedFilesHtml} getRootProps={getRootPropsHtml} getInputProps={getInputPropsHtml}/>
+            <FileAttachment title="Cover image" acceptedFiles={acceptedFilesImage} getRootProps={getRootPropsImage} getInputProps={getInputPropsImage}/>
             <TextInputForm label="Login" placeholder="Login of your account" value={login} setter={setLogin}/>
             <PasswordInputForm setter={setPassword}/>
-            <SendButton/>
+            <Button className="mt-3" onPress={sendData}>Post blog</Button>
         </div>
     );
 }

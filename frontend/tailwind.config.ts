@@ -15,7 +15,7 @@ export default {
         text:"#E0E0E0",
         textsecondary:"#B0B0B0",
         'muted-purple': 'rgba(44, 129, 163, 0.3)',
-        'muted-purple-hover': 'rgba(44, 129, 163, 0.9)',
+        'muted-purple-hover': 'rgba(44, 129, 163)',
       },
     },
   },
