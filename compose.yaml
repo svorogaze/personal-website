@@ -3,8 +3,6 @@ services:
     build: /frontend/
     ports:
       - "3000:3000"
-    expose:
-      - "8088"
     depends_on:
       db:
         condition: service_healthy

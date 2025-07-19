@@ -9,10 +9,6 @@ const nextConfig: NextConfig = {
 module.exports = {
   async rewrites() {
     return [
-      {
-        source: '/api/:path*',
-        destination: 'http://backend:8088/api/:path*' // Proxy to Backend
-      }
     ]
   }
 }

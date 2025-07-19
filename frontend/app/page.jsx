@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Tooltip } from 'react-tooltip';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 function IconWithTooltip(props) {
     return (
         <div className="px-2 flex flex-grow-0">
@@ -31,11 +32,11 @@ function IntroductionCard() {
     return (
         <div className="flex items-center">
             <div className="flex px-4">
-                <img src="/my-photo.webp" className="rounded-full h-100 pt-3" alt="my face" />
+                <Image src="/my-photo.webp" className="rounded-full h-100 pt-3" alt="my face" width="1024" height="1024"/>
             </div>
             <div className="py-4 w-full">
-                <div className="text-4xl text-center">Hi, I am Vladimir Zagorovskii</div>
-                <div className="text-3xl text-center">Back-End developer</div>
+                <div className="text-5xl font-bold text-center">Hi, I am Vladimir Zagorovskii</div>
+                <div className="text-4xl font-bold text-center">Back-End developer</div>
                 <div className="text-2xl text-center text-textsecondary">18 y.o developer from Moscow</div>
                 <div className="flex justify-center items-center pt-3">
                     <IconWithTooltip
@@ -90,6 +91,8 @@ function SkillCard(props) {
                     src={props.imageLink}
                     alt=""
                     className="object-cover h-48 w-48 p-3"
+                    width="1024"
+                    height="1024"
                 />
                 <div className="text-center text-2xl w-full h-full">{props.skillName}</div>
             </div>
@@ -132,7 +135,7 @@ function Skills() {
         <div className="w-full py-4">
             <div>
                 <div className="py-4 w-full">
-                    <div className="text-4xl text-center">Skills</div>
+                    <div className="text-5xl font-bold text-center">Skills</div>
                 </div>
             </div>
             <div className="flex flex-wrap justify-center items-stretch gap-6 py-2">
@@ -144,23 +147,34 @@ function Skills() {
     );
 }
 
+function Achievement(props) {
+    return (
+        <div className="bg-foreground rounded-2xl shadow-lg p-6 max-w-xl w-full transition hover:shadow-xl">
+            <h3 className="text-2xl font-bold mb-1">{props.text}</h3>
+            <p className="text-text">{props.detail}</p>
+        </div>
+    );
+}
+
 function Achievements() {
     return (
-        <div className="w-full py-4">
-            <div className="w-full">
-                <div className="text-4xl text-center">Achievements</div>
+        <div className="w-full py-10">
+            <h2 className="text-5xl font-bold text-center mb-8">Achievements</h2>
+            <div className="flex flex-col gap-6 items-center">
+                <Achievement text="Silver Medal" detail="International Zhautykov Olympiad in Informatics 2024"/>
+                <Achievement text="Top 70 nationally" detail="Finals of National Russian Olympiad in Informatics"/>
+                <div className="bg-foreground rounded-2xl shadow-lg p-6 max-w-xl w-full transition hover:shadow-xl">
+                    <h3 className="text-2xl font-bold mb-1">Codeforces</h3>
+                    <p className="text-text">
+                        Maximum rating of <span className="font-bold">1944</span> on{' '}
+                        <a href="https://codeforces.com/profile/Lobotomy_Corporation_Fan"
+                           className="text-blue-400 hover:text-blue-300 underline transition duration-150">
+                            codeforces
+                        </a>{' '}
+                        (top <span className="font-bold">3%</span>)
+                    </p>
+                </div>
             </div>
-            <ul className="w-full space-y-1 text-text list-inside text-3xl py-4 text-center">
-                <li>
-                    Silver medal at Inernational Zhautykov Olimpiad in Informatics 2024
-                </li>
-                <li>
-                    Top 70 in finals of national Russian Olympiad in Informatics
-                </li>
-                <li>
-                    Maximum rating of 1944 on <a href="https://codeforces.com/profile/Lobotomy_Corporation_Fan" className="underline">codeforces</a> (top 3%)
-                </li>
-            </ul>
         </div>
     );
 }
@@ -170,7 +184,7 @@ export default function Home() {
         <div className="text-text">
             <IntroductionCard />
             <Skills />
-            <Achievements />
+            <Achievements/>
         </div>
     );
 }
