@@ -102,7 +102,7 @@ func getBlogsRange(c *gin.Context) {
 	var rowsCount int64
 	err = db.Get(&rowsCount, "SELECT COUNT(*) FROM blog WHERE title ILIKE $1", "%"+searchQuery+"%")
 	if err != nil {
-		log.Print(err)
+		log.Printf("rows count error: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
@@ -224,8 +224,8 @@ func createBlog(c *gin.Context) {
 }
 
 func main() {
-	connStr := fmt.Sprintf("user=%s password=%s dbname=blogs sslmode=disable", os.Getenv("POSTGRES_USERNAME"),
-		os.Getenv("POSTGRES_PASSWORD"))
+	connStr := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable", "db", os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
 	imageFolder = os.Getenv("IMAGE_FOLDER_PATH")
 	var err error
 	db, err = sqlx.Open("postgres", connStr)

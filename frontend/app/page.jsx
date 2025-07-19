@@ -86,7 +86,7 @@ function SkillCard(props) {
     return (
         <div className="w-1/2 lg:w-1/5 md:w-1/3 xl:w-1/6 bg-background justify-center items-center flex">
             <div className="bg-foreground px-3 items-center">
-                <img
+                <Image
                     src={props.imageLink}
                     alt=""
                     className="object-cover h-48 w-48 p-3"
@@ -95,11 +95,6 @@ function SkillCard(props) {
             </div>
         </div>
     );
-}
-
-SkillCard.propTypes = {
-    imageLink: PropTypes.string.isRequired,
-    skillName: PropTypes.string.isRequired
 }
 
 function Skills() {
