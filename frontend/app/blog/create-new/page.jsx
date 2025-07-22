@@ -179,7 +179,7 @@ export default function Home() {
         form.append("password", password);
         form.append("blog-text", acceptedFilesHtml[0], acceptedFilesHtml[0].name);
         form.append("cover-image", acceptedFilesImage[0],acceptedFilesImage[0].name);
-        await fetch('http://localhost:3000/api/blogs', {
+        await fetch(`${window.location.origin}/api/blogs`, {
             method: 'POST',
             body: form
         })

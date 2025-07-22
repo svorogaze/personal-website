@@ -9,8 +9,8 @@ function BlogCard(props) {
     return (
         <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 py-3">
             <Link className="blog-card h-full w-full flex flex-col max-w-full group" href={`/blog/${props.id}`}>
-                <Image
-                    src={"/" + props.imageLink}
+                <image
+                    src={`${window.location.origin}/images/blog-cover-images/` + props.imageLink}
                     alt=""
                     width="1024"
                     height="1024"

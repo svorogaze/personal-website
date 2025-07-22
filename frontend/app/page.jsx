@@ -180,6 +180,7 @@ function Achievements() {
 }
 
 export default function Home() {
+    console.log(window.location.origin);
     return (
         <div className="text-text">
             <IntroductionCard />
