@@ -9,11 +9,11 @@ function BlogCard(props) {
     return (
         <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 py-3">
             <Link className="blog-card h-full w-full flex flex-col max-w-full group" href={`/blog/${props.id}`}>
-                <image
+                <Image
                     src={`${window.location.origin}/images/blog-cover-images/` + props.imageLink}
                     alt=""
-                    width="1024"
-                    height="1024"
+                    width="512"
+                    height="512"
                     className="object-cover w-full h-48 group-hover:brightness-50 transition-all duration-75"
                 />
                 <div className="px-5 py-4 text-left flex-grow max-w-full">

@@ -6,10 +6,7 @@ const nextConfig: NextConfig = {
   },
   images: {
    remotePatterns: [
-   {
-      protocol: "http",
-      hostname: "**",
-    },
+    new URL('http://localhost/**')
    ],
 },
 };
