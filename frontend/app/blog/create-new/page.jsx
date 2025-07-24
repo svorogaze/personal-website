@@ -1,23 +1,23 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {Input, Button} from "@heroui/react";
 import {useDropzone} from 'react-dropzone';
-function TextInputForm(props) {
+function TextInputForm({label, placeholder, value, setter}) {
     return (
         <Input
-            label={props.label}
-            placeholder={props.placeholder}
-            value={props.value}
+            label={label}
+            placeholder={placeholder}
+            value={value}
             className="mt-5 mb-5 text-text max-w-[450px]"
             onChange={((e) => {
-                props.setter(e.target.value)
+                setter(e.target.value)
             })}
             isRequired
         />
     );
 }
 
-export const EyeSlashFilledIcon = (props) => {
+function EyeSlashFilledIcon() {
   return (
     <svg
       aria-hidden="true"
@@ -27,7 +27,6 @@ export const EyeSlashFilledIcon = (props) => {
       role="presentation"
       viewBox="0 0 24 24"
       width="1em"
-      {...props}
     >
       <path
         d="M21.2714 9.17834C20.9814 8.71834 20.6714 8.28834 20.3514 7.88834C19.9814 7.41834 19.2814 7.37834 18.8614 7.79834L15.8614 10.7983C16.0814 11.4583 16.1214 12.2183 15.9214 13.0083C15.5714 14.4183 14.4314 15.5583 13.0214 15.9083C12.2314 16.1083 11.4714 16.0683 10.8114 15.8483C10.8114 15.8483 9.38141 17.2783 8.35141 18.3083C7.85141 18.8083 8.01141 19.6883 8.68141 19.9483C9.75141 20.3583 10.8614 20.5683 12.0014 20.5683C13.7814 20.5683 15.5114 20.0483 17.0914 19.0783C18.7014 18.0783 20.1514 16.6083 21.3214 14.7383C22.2714 13.2283 22.2214 10.6883 21.2714 9.17834Z"
@@ -51,9 +50,9 @@ export const EyeSlashFilledIcon = (props) => {
       />
     </svg>
   );
-};
+}
 
-export const EyeFilledIcon = (props) => {
+function EyeFilledIcon() {
   return (
     <svg
       aria-hidden="true"
@@ -63,7 +62,6 @@ export const EyeFilledIcon = (props) => {
       role="presentation"
       viewBox="0 0 24 24"
       width="1em"
-      {...props}
     >
       <path
         d="M21.25 9.14969C18.94 5.51969 15.56 3.42969 12 3.42969C10.22 3.42969 8.49 3.94969 6.91 4.91969C5.33 5.89969 3.91 7.32969 2.75 9.14969C1.75 10.7197 1.75 13.2697 2.75 14.8397C5.06 18.4797 8.44 20.5597 12 20.5597C13.78 20.5597 15.51 20.0397 17.09 19.0697C18.67 18.0897 20.09 16.6597 21.25 14.8397C22.25 13.2797 22.25 10.7197 21.25 9.14969ZM12 16.0397C9.76 16.0397 7.96 14.2297 7.96 11.9997C7.96 9.76969 9.76 7.95969 12 7.95969C14.24 7.95969 16.04 9.76969 16.04 11.9997C16.04 14.2297 14.24 16.0397 12 16.0397Z"
@@ -75,17 +73,17 @@ export const EyeFilledIcon = (props) => {
       />
     </svg>
   );
-};
+}
 
 
-function PasswordInputForm(props) {
+function PasswordInputForm({setter}) {
     const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
     <Input
-      className="max-w-[450]"
+      className="max-w-[450px]"
       endContent={
         <button
           aria-label="toggle password visibility"
@@ -104,7 +102,7 @@ function PasswordInputForm(props) {
       placeholder="Enter your password"
       type={isVisible ? "text" : "password"}
       onChange={((e) => {
-                props.setter(e.target.value)
+                setter(e.target.value)
               }
       )}
       isRequired
@@ -113,8 +111,8 @@ function PasswordInputForm(props) {
 }
 
 
-function FileAttachment(props) {    
-    const files = props.acceptedFiles.map(file => (
+function FileAttachment({acceptedFiles, title, getRootProps, getInputProps}) {    
+    const files = acceptedFiles.map(file => (
         <li key={file.path} className="flex justify-between items-center p-2">
             <span className="text-sm text-text truncate max-w-xs">{file.path}</span>
             <span className="text-xs text-textsecondary">{(file.size / 1024).toFixed(2)} KB</span>
@@ -122,13 +120,13 @@ function FileAttachment(props) {
     ));
 
     return (
-        <section className="max-w-[450]">
-        <h2 className="text-lg font-medium text-text mb-3">{props.title}</h2>
+        <section className="max-w-[450px]">
+        <h2 className="text-lg font-medium text-text mb-3">{title}</h2>
         <div 
-            {...props.getRootProps()} 
+            {...getRootProps()} 
             className="border-2 border-dashed border-muted-purple rounded-lg p-8 text-center cursor-pointer hover:border-muted-purple-hover bg-foreground hover:bg-[#2E2E2E] transition-colors duration-200"
         >
-            <input {...props.getInputProps()} />
+            <input {...getInputProps()} />
             <p className="text-text">Drag file here or click to select</p>
         </div>
         <aside className="mt-4 mb-2">
@@ -140,7 +138,7 @@ function FileAttachment(props) {
                 <p className="text-sm text-textsecondary italic">No files selected</p>
             )}
         </aside>
-    </section>
+      </section>
     );
 }
 
@@ -159,7 +157,9 @@ export default function Home() {
     const { acceptedFiles: acceptedFilesImage, getRootProps: getRootPropsImage, getInputProps: getInputPropsImage } = useDropzone(
         {
             accept: {
-                'image': ['.png', '.jpg', 'webp'],
+                'image/png': ['.png'],
+                'image/jpeg': ['.jpg'],
+                'image/webp': ['.webp']
             }
         }
     );

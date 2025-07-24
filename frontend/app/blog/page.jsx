@@ -9,14 +9,13 @@ function BlogCard(props) {
     return (
         <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 py-3">
             <Link className="blog-card h-full w-full flex flex-col max-w-full group" href={`/blog/${props.id}`}>
-                <Image
+                <img
                     src={`${window.location.origin}/images/blog-cover-images/` + props.imageLink}
                     alt=""
-                    width="512"
-                    height="512"
-                    className="object-cover w-full h-48 group-hover:brightness-50 transition-all duration-75"
+                    className="object-scale-down w-full h-48 group-hover:brightness-50 transition-all duration-75 mt-2"
+                    loading="lazy"
                 />
-                <div className="px-5 py-4 text-left flex-grow max-w-full">
+                <div className="px-3 py-4 text-left flex-grow max-w-full">
                     <div className="font-bold text-xl mb-2 pr-2 max-w-full break-words">{props.title}</div>
                     <p className="text-base break-words">{props.text}</p>
                 </div>
@@ -102,12 +101,11 @@ export default function Home(props) {
             <div className="scrollbar-stable"/>
         );
     }
-    const allPages = (blogData.metadata.size + 7) / 8;
-    console.log(blogData);
+    const allPages = Math.max(Math.floor((blogData.metadata.size + 7) / 8), 1);
     return (
         <div className="scrollbar-stable">
             <SearchBar placeholder="Look up anything..."/>
-            <BlogPagination currentPage={currentPage} allPages={allPages}/>
+            <BlogPagination currentPage={currentPage} allPages={allPages}/> 
             <CardList blogs={blogData.data}/>
         </div>
     );

@@ -44,7 +44,7 @@ function BlogHeader(props) {
 function BlogText(props) {
 
     return (
-        <Box sx={{ maxWidth: 1000, mx: 'auto', px: { xs: 2, md: 0 }, pb: 4, lineHeight: 1.6}} style={{whiteSpace: 'pre-line'}} className="text-2xl text-text">
+        <Box sx={{ maxWidth: 1000, mx: 'auto', px: { xs: 2, md: 0 }, pb: 4, lineHeight: 1.6}} className="text-2xl text-text whitespace-pre-lines">
           {parse(props.text)}
         </Box>
     );

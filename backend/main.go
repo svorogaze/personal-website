@@ -70,13 +70,9 @@ func main() {
 	API := api.New(db, minioClient)
 
 	router := gin.Default()
-	err = router.SetTrustedProxies([]string{"nginx"})
-	if err != nil {
-		log.Fatalf("failed to set trusted proxies %v", err)
-	}
-	router.GET("/API/blogs/:id", API.GetBlog)
-	router.GET("/API/blogs", API.GetBlogsRange)
-	router.POST("/API/blogs", API.CreateBlog)
+	router.GET("/api/blogs/:id", API.GetBlog)
+	router.GET("/api/blogs", API.GetBlogsRange)
+	router.POST("/api/blogs", API.CreateBlog)
 	err = router.Run(":8088")
 	if err != nil {
 		log.Fatalf("Error when running server: %v", err)

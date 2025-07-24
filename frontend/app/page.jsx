@@ -86,7 +86,7 @@ function IntroductionCard() {
 function SkillCard(props) {
     return (
         <div className="w-1/2 lg:w-1/5 md:w-1/3 xl:w-1/6 bg-background justify-center items-center flex">
-            <div className="bg-foreground px-3 items-center">
+            <div className="bg-foreground px-3 items-center rounded-3xl transition hover:ring-2 hover:ring-muted-purple-hover">
                 <Image
                     src={props.imageLink}
                     alt=""
@@ -149,7 +149,7 @@ function Skills() {
 
 function Achievement(props) {
     return (
-        <div className="bg-foreground rounded-2xl shadow-lg p-6 max-w-xl w-full transition hover:shadow-xl">
+        <div className="bg-foreground rounded-2xl p-6 max-w-xl w-full transition hover:ring-2 hover:ring-muted-purple-hover">
             <h3 className="text-2xl font-bold mb-1">{props.text}</h3>
             <p className="text-text">{props.detail}</p>
         </div>
@@ -163,7 +163,7 @@ function Achievements() {
             <div className="flex flex-col gap-6 items-center">
                 <Achievement text="Silver Medal" detail="International Zhautykov Olympiad in Informatics 2024"/>
                 <Achievement text="Top 70 nationally" detail="Finals of National Russian Olympiad in Informatics"/>
-                <div className="bg-foreground rounded-2xl shadow-lg p-6 max-w-xl w-full transition hover:shadow-xl">
+                <div className="bg-foreground rounded-3xl p-6 max-w-xl w-full transition hover:ring-2 hover:ring-muted-purple-hover">
                     <h3 className="text-2xl font-bold mb-1">Codeforces</h3>
                     <p className="text-text">
                         Maximum rating of <span className="font-bold">1944</span> on{' '}
@@ -180,7 +180,6 @@ function Achievements() {
 }
 
 export default function Home() {
-    console.log(window.location.origin);
     return (
         <div className="text-text">
             <IntroductionCard />
