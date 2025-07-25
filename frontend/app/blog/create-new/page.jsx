@@ -150,7 +150,7 @@ export default function Home() {
     const { acceptedFiles: acceptedFilesHtml, getRootProps: getRootPropsHtml, getInputProps: getInputPropsHtml } = useDropzone(
         {
             accept: {
-                'text/txt': ['.html', '.htm', '.txt'],
+                'text/markdown': ['.md', '.txt'],
             }
         }
     );

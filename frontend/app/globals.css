@@ -17,6 +17,10 @@
     }
 }
 
+*, html {
+    scroll-behavior: smooth !important;
+}
+
 body {
     color: var(--text-color);
     background: var(--background-color);

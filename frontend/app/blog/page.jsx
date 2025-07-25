@@ -3,18 +3,24 @@ import React, { useState, use, useEffect } from "react";
 import { useSearchParams, usePathname, useRouter} from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import {Pagination} from "@heroui/react";
-import Image from 'next/image';
 import Link from 'next/link';
 function BlogCard(props) {
-    return (
-        <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-3 py-3">
-            <Link className="blog-card h-full w-full flex flex-col max-w-full group" href={`/blog/${props.id}`}>
-                <img
-                    src={`${window.location.origin}/images/blog-cover-images/` + props.imageLink}
-                    alt=""
-                    className="object-scale-down w-full h-48 group-hover:brightness-50 transition-all duration-75 mt-2"
-                    loading="lazy"
-                />
+     return (
+        <div className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 xl:max-w-[400px] px-3 py-3">
+            <Link 
+                className="border-2 rounded-lg overflow-hidden border-background hover:border-muted-purple-hover 
+                bg-foreground text-text 
+                h-full w-full flex flex-col max-w-full group" 
+                href={`/blog/${props.id}`}
+            >
+                <div className="relative w-full h-48 overflow-hidden">
+                    <img
+                        src={`${window.location.origin}/images/blog-cover-images/` + props.imageLink}
+                        alt={props.title}
+                        className="object-cover w-full h-full group-hover:brightness-50 transition-all duration-75"
+                        loading="lazy"
+                    />
+                </div>
                 <div className="px-3 py-4 text-left flex-grow max-w-full">
                     <div className="font-bold text-xl mb-2 pr-2 max-w-full break-words">{props.title}</div>
                     <p className="text-base break-words">{props.text}</p>
