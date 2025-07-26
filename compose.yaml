@@ -12,7 +12,13 @@ services:
     restart: always
     ports:
       - "8088:8088"
-    env_file: ".env"
+    environment:
+      POSTGRES_DB:         ${POSTGRES_DB}
+      POSTGRES_USER:       ${POSTGRES_USER}
+      POSTGRES_PASSWORD:   ${POSTGRES_PASSWORD}
+      MINIO_ROOT_USER:     ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      GIN_MODE:            ${GIN_MODE}
     depends_on:
       db:
         condition: service_healthy
@@ -29,9 +35,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB:       ${POSTGRES_DB}
-      POSTGRES_USER:     ${POSTGRES_USER}
-      POSTGRES_PASSWORD:  ${POSTGRES_PASSWORD}
+      POSTGRES_DB:         ${POSTGRES_DB}
+      POSTGRES_USER:       ${POSTGRES_USER}
+      POSTGRES_PASSWORD:   ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
