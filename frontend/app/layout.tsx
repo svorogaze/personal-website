@@ -40,7 +40,6 @@ export default function RootLayout({
                         <div className='flex gap-2 xl:gap-10 md:gap-8'>
                             <Link href="/" className="navigation-bar-element">About me</Link>
                             <Link href="/blog" className="navigation-bar-element">Blog</Link>
-                            <Link href="/blog" className="navigation-bar-element">Projects</Link>
                         </div>
                     </div>
                 </div>
