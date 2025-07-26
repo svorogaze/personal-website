@@ -11,13 +11,11 @@ import (
 func (api *API) GetBlogsRange(c *gin.Context) {
 	offset, err := strconv.ParseInt(c.Query("offset"), 10, 64)
 	if err != nil {
-		log.Print(err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
 	size, err := strconv.ParseInt(c.Query("size"), 10, 64)
 	if err != nil {
-		log.Print(err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
@@ -26,7 +24,6 @@ func (api *API) GetBlogsRange(c *gin.Context) {
 	var rowsCount int64
 	err = api.db.Get(&rowsCount, "SELECT COUNT(*) FROM blog WHERE title ILIKE $1", "%"+searchQuery+"%")
 	if err != nil {
-		log.Printf("rows count error: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
@@ -34,7 +31,6 @@ func (api *API) GetBlogsRange(c *gin.Context) {
 	rows, err := api.db.Queryx("SELECT id, title, description, pictureLink FROM blog WHERE title ILIKE $3 ORDER by id DESC LIMIT $1 OFFSET $2",
 		size, offset, "%"+searchQuery+"%")
 	if err != nil {
-		log.Print(err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
@@ -42,7 +38,6 @@ func (api *API) GetBlogsRange(c *gin.Context) {
 	for rows.Next() {
 		var bc BlogCard
 		if err := rows.StructScan(&bc); err != nil {
-			log.Print(err)
 			c.JSON(http.StatusBadRequest, gin.H{})
 			return
 		}

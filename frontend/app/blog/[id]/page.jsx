@@ -1,15 +1,15 @@
 'use client'
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Typography, Box, Avatar, Divider } from '@mui/material';
+import { Typography, Box, Divider, Avatar } from '@mui/material';
 import { format } from 'date-fns';
-import {ReactMarkdown, MarkdownHooks} from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm';;
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { visit } from 'unist-util-visit';
-import rehypeStarryNight from 'rehype-starry-night';
+import Image from 'next/image';
 function BlogHeader(props) {
     return (
     <Box sx={{ mx: 'auto', px: { xs: 2, md: 0 }, pt: 4}} className="text-text max-w-[min(1000px,100%)]">
@@ -27,11 +27,9 @@ function BlogHeader(props) {
       </Typography>
       
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <Avatar 
-          alt={props.author.name} 
-          src={props.author.avatarLink} 
-          sx={{ width: 64, height: 64, mr: 2 }}
-        />
+        <Avatar sx={{ width: 64, height: 64, mr: 2 }}>
+          <Image src={props.author.avatarLink} width="64" height="64"/>
+        </Avatar>
         <Box>
           <Typography variant="subtitle1" component="div" sx={{ fontWeight: 600 }}>
             {props.author.name}
@@ -50,7 +48,7 @@ function BlogHeader(props) {
 function MarkdownRenderer({ content }){
   return (
     <div className="markdown-body font-sans text-text max-w-[min(1000px,100%)] mx-auto py-8 text-2xl [&>*]:max-w-full">
-      <MarkdownHooks
+      <ReactMarkdown
         remarkPlugins={
           [remarkGfm,
             () => (tree) => { // fix inline code
@@ -60,7 +58,7 @@ function MarkdownRenderer({ content }){
             },
           ]
         }
-        rehypePlugins={[rehypeRaw, rehypeStarryNight]}
+        rehypePlugins={[rehypeRaw]}
         components={{
           h1: ({ node, ...props }) => (
             <h1 className="text-4xl lg:text-6xl font-bold border-b border-gray-200 pb-2 mt-6 mb-4" {...props} />
@@ -145,7 +143,7 @@ function MarkdownRenderer({ content }){
         }}
       >
         {content}
-      </MarkdownHooks>
+      </ReactMarkdown>
     </div>
   );
 };

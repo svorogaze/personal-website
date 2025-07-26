@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -17,7 +18,7 @@ func (api *API) GetBlog(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
-	a, err := api.getAuthorById(b.AuthorId)
+	a, err := api.getAuthorCardById(b.AuthorId)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return

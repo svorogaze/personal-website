@@ -8,9 +8,15 @@ type Author struct {
 	Password   string
 }
 
-func (api *API) getAuthorById(id int64) (Author, error) {
-	row := api.db.QueryRowx("SELECT * FROM author WHERE id=$1", id)
-	var a Author
+type AuthorCard struct {
+	Id         int64  `json:"id"`
+	Name       string `json:"name"`
+	AvatarLink string `json:"avatarLink" db:"avatar_link"`
+}
+
+func (api *API) getAuthorCardById(id int64) (AuthorCard, error) {
+	row := api.db.QueryRowx("SELECT id, name, avatar_link FROM author WHERE id=$1", id)
+	var a AuthorCard
 	if err := row.StructScan(&a); err != nil {
 		return a, err
 	}
