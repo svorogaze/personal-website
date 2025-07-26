@@ -90,7 +90,7 @@ function SkillCard(props) {
                 <Image
                     src={props.imageLink}
                     alt=""
-                    className="object-cover h-48 w-48 p-3"
+                    className="object-cover h-48 w-48 py-3"
                     width="1024"
                     height="1024"
                 />
@@ -158,7 +158,7 @@ function Achievement(props) {
 
 function Achievements() {
     return (
-        <div className="w-full py-10">
+        <div className="w-full py-10 px-4">
             <h2 className="text-5xl font-bold text-center mb-8">Achievements</h2>
             <div className="flex flex-col gap-6 items-center">
                 <Achievement text="Silver Medal" detail="International Zhautykov Olympiad in Informatics 2024"/>
