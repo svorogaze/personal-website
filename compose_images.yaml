@@ -1,0 +1,66 @@
+services:
+  frontend:
+    build: svorogaze/website-frontend:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+  backend:
+    build: svorogaze/website-backend:latest
+    restart: always
+    ports:
+      - "8088:8088"
+    env_file: ".env"
+    depends_on:
+      db:
+        condition: service_healthy
+      minio:
+        condition: service_started
+  db:
+    image: postgres:17.5-alpine3.22
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB}  -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 50s
+      retries: 10
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB}
+      POSTGRES_USER:     ${POSTGRES_USER}
+      POSTGRES_PASSWORD:  ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+  nginx:
+    image: nginx:alpine3.22
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      minio: 
+        condition: service_started
+      frontend: 
+        condition: service_started
+      backend: 
+        condition: service_started
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  minio:
+    image: quay.io/minio/minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./minio/data:/data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    command: server /data --console-address ":9001"
+volumes:
+  pgdata:
+    
