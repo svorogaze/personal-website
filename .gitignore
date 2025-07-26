@@ -1,0 +1,5 @@
+.idea
+node_modules
+.next
+.minio.sys
+blog-cover-images
