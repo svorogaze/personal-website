@@ -1,7 +1,7 @@
 A modern personal portfolio and blog website
 ### Uses:
 - Frontend: NextJS
-- Backend: GO
+- Backend: go
 - Reverse proxy: nginx
 - S3 file storage: minio
 - Database: PostgreSQL
