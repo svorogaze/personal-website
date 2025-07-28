@@ -1,5 +1,5 @@
 A modern personal portfolio and blog website
-####Uses:
+###Uses:
 - Frontend: NextJS
 - Backend: GO
 - Reverse proxy: nginx
