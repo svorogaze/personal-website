@@ -1,5 +1,5 @@
 # Portfolio & Blog Website  
-A full-stack personal portfolio and blog website built with Next.js (frontend), Go (backend), and deployed with Docker.  
+A full-stack personal portfolio and blog website built with Next.js, Go, and deployed with Docker.  
 ## Tech Stack  
 - **Frontend**: Next.js  
 - **Backend**: Go  
