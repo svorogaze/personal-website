@@ -30,11 +30,11 @@ IconWithTooltip.propTypes = {
 function IntroductionCard() {
     const [emailTooltipContent, setEmailTooltipContent] = useState("");
     return (
-        <div className="flex items-center">
-            <div className="flex px-4">
-                <Image src="/my-photo.webp" className="rounded-full h-100 pt-3" alt="my face" width="1024" height="1024"/>
+        <div className="sm:flex items-center">
+            <div className="sm:flex px-4">
+                <Image src="/my-photo.webp" className="rounded-full h-100 pt-3 aspect-square" alt="my face" width="1024" height="1024" priority={true}/>
             </div>
-            <div className="py-4 w-full">
+            <div className="py-4 w-full px-2">
                 <div className="text-5xl font-bold text-center">Hi, I am Vladimir Zagorovskii</div>
                 <div className="text-4xl font-bold text-center">Back-End developer</div>
                 <div className="text-2xl text-center text-textsecondary">18 y.o developer from Moscow</div>
@@ -85,19 +85,21 @@ function IntroductionCard() {
 
 function SkillCard(props) {
     return (
-        <div className="w-1/2 lg:w-1/5 md:w-1/3 xl:w-1/6 bg-background justify-center items-center flex">
-            <div className="bg-foreground px-3 items-center rounded-3xl transition hover:ring-2 hover:ring-muted-purple-hover">
+    <div className="w-4/5 sm:w-1/2 lg:w-1/5 md:w-1/3 xl:w-1/6 2xl:w-1/10 bg-background justify-center items-center flex p-2 mx-1">
+        <div className="bg-foreground mx-4 px-2 items-center rounded-3xl transition hover:ring-2 hover:ring-muted-purple-hover">
+            <div className="flex relative h-44 w-44 mx-3 items-center justify-center mt-3">
                 <Image
-                    src={props.imageLink}
-                    alt=""
-                    className="object-cover h-48 w-48 py-3"
-                    width="1024"
-                    height="1024"
+                src={props.imageLink}
+                alt=""
+                className="object-fill"
+                width="1024"
+                height="1024"
                 />
-                <div className="text-center text-2xl w-full h-full">{props.skillName}</div>
             </div>
+            <div className="text-center text-2xl w-full h-full mb-1">{props.skillName}</div>
         </div>
-    );
+    </div>
+);
 }
 
 function Skills() {

@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"

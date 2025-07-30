@@ -4,18 +4,6 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '',
-        pathname: '/**',
-        search: '',
-      },
-    ],
-    unoptimized: true,
-  },
 };
 
 

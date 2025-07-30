@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "svorogaze",
-    description: "Personal portfolio of svorogaze",
+    title: "Personal portfolio/blog",
+    description: "Personal portfolio/blog website",
 };
 
 
@@ -31,7 +31,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="dark hydrated" data-arp="">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
                 cz-shortcut-listen="true"
             >
                 <HeroUIProvider>
